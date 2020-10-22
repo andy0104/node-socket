@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Socket IO</title>
+	</head>
+	<body>
+		<h1>Web Socket!</h1>
+
+		<button id="send_btn">Send Message</button>
+		<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+			const socket = io();
+
+			socket.on('welcome', ({ message }) => {
+				console.log(message);
+			});
+
+			document.querySelector('#send_btn').addEventListener('click', (event) => {
+				socket.emit('message', {
+					from: 'aninda',
+					to: 'bishal',
+					message: 'hi man'
+				});
+			});
+			
+			socket.on('new_message', ({ message }) => {
+				console.log(`New message received => ${message}`);
+			})
+			// Client side
+			//const socket = io('http://localhost?userName=tom');
+
+			// Server side (backend)
+			// let userName = socket.handshake.query.userName;
+		</script>
+	</body>
+</html>
